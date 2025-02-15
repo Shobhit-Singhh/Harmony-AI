@@ -1,0 +1,83 @@
+{ 
+  "Depression": {
+    "Major Depressive Disorder": {
+      "CoreSymptomsCount": 1,
+      "CoreSymptoms": [
+        {"id": 100, "question": "Over the past two weeks, have you often felt sad, empty, hopeless, or depressed most of the day, nearly every day? If yes, for how long?"},
+        {"id": 101, "question": "Over the past two weeks, have you lost interest or pleasure in activities you usually enjoy? If yes, for how long?"}
+      ],
+      "AssociatedSymptomsCount": 5,
+      "AssociatedSymptoms": [
+        {"id": 102, "question": "Over the past two weeks, have you noticed significant changes in your weight or appetite, such as eating much more or less than usual?"},
+        {"id": 103, "question": "Over the past two weeks, have you had trouble sleeping, either finding it hard to fall asleep, waking up too early, or sleeping too much?"},
+        {"id": 104, "question": "Over the past two weeks, have you felt unusually restless or sluggish, as though you can't sit still or are moving much slower than usual?"},
+        {"id": 105, "question": "Over the past two weeks, have you felt fatigued or unusually low on energy?"},
+        {"id": 106, "question": "Over the past two weeks, have you experienced feelings of worthlessness or excessive guilt?"},
+        {"id": 107, "question": "Over the past two weeks, have you had trouble concentrating or making decisions?"},
+        {"id": 108, "question": "Over the past two weeks, have you had frequent thoughts of death, or have you thought about hurting yourself or making a plan to end your life?"}
+      ]
+    },
+    "Persistent Depressive Disorder": {
+      "CoreSymptomsCount": 1,
+      "CoreSymptoms": [
+        {"id": 109, "question": "Have you been experiencing a depressed mood for most of the day, more days than not, for at least two years? If yes, has this been interrupted for more than two months at a time?"}
+      ],
+      "AssociatedSymptomsCount": 2,
+      "AssociatedSymptoms": [
+        {"id": 110, "question": "Over the past two years, have you had a poor appetite or have you been overeating frequently?"},
+        {"id": 111, "question": "Over the past two years, have you struggled with difficulty falling asleep, staying asleep, or sleeping too much?"},
+        {"id": 112, "question": "Over the past two years, have you often felt tired or low on energy?"},
+        {"id": 113, "question": "Over the past two years, have you experienced low self-esteem or felt bad about yourself frequently?"},
+        {"id": 114, "question": "Over the past two years, have you had trouble concentrating or making decisions?"},
+        {"id": 115, "question": "Over the past two years, have you felt hopeless about the future?"}
+      ]
+    }
+  },
+  "Anxiety": {
+    "Generalized Anxiety Disorder": {
+      "CoreSymptomsCount": 1,
+      "CoreSymptoms": [
+        {"id": 200, "question": "Over the past six months, have you often felt excessively worried about multiple areas of your life (e.g., work, relationships, health)? If yes, has it been difficult to control these worries?"}
+      ],
+      "AssociatedSymptomsCount": 3,
+      "AssociatedSymptoms": [
+        {"id": 201, "question": "Do you find yourself feeling restless, keyed up, or on edge frequently?"},
+        {"id": 202, "question": "Over the past six months, have you often felt tired or experienced fatigue, even without significant physical exertion?"},
+        {"id": 203, "question": "Do you have difficulty concentrating or does your mind often go blank when you're anxious?"},
+        {"id": 204, "question": "Have you frequently felt muscle tension when anxious?"},
+        {"id": 205, "question": "Have you had trouble sleeping due to worry, such as difficulty falling asleep, staying asleep, or waking up feeling unrefreshed?"}
+      ]
+    },
+    "Panic Disorder": {
+      "CoreSymptomsCount": 1,
+      "CoreSymptoms": [
+        {"id": 206, "question": "Have you ever had a sudden, unexpected surge of intense fear or discomfort that included physical symptoms such as heart racing, sweating, shortness of breath, or dizziness? If yes, how often has this happened?"}
+      ],
+      "AssociatedSymptomsCount": 1,
+      "AssociatedSymptoms": [
+        {"id": 207, "question": "When you experience sudden surges of fear, do you also feel like you're losing control, going crazy, or that something terrible will happen?"},
+        {"id": 208, "question": "Have you ever started avoiding places or situations because you worry about having a panic attack or being unable to escape or get help?"}
+      ]
+    },
+    "Agoraphobia Disorder": {
+      "CoreSymptomsCount": 2,
+      "CoreSymptoms": [
+        {"id": 209, "question": "Do you often fear being in crowds, standing in line, using public transportation, being in open spaces, or being outside the home alone?"},
+        {"id": 217, "question": "Do you avoid situations where escape might be difficult or help unavailable if you experience anxiety or panic?"}
+      ],
+      "AssociatedSymptomsCount": 0,
+      "AssociatedSymptoms": []
+    },
+    "Social Anxiety Disorder": {
+      "CoreSymptomsCount": 1,
+      "CoreSymptoms": [
+        {"id": 210, "question": "Do you feel excessive fear or anxiety in social situations where you might be judged or evaluated by others, such as speaking in public or meeting new people?"}
+      ],
+      "AssociatedSymptomsCount": 1,
+      "AssociatedSymptoms": [
+        {"id": 211, "question": "Have you ever avoided social or performance situations because of this fear or anxiety?"},
+        {"id": 218, "question": "Have your fears, worries, or avoidance behaviors caused significant distress or interfered with your ability to function at work, school, or socially?"}
+      ]
+    }
+  }
+}

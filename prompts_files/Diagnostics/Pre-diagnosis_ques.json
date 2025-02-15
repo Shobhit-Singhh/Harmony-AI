@@ -1,0 +1,250 @@
+{
+    "Depression": {
+        "questions": [
+            {
+                "id": 1,
+                "text": "Have you been feeling sad, blue, down, depressed, or irritable?"
+            },
+            {
+                "id": 2,
+                "text": "Have you lost interest in, or do you get less pleasure from, the things you used to enjoy?"
+            },
+            {
+                "id": 3,
+                "text": "Have you felt down or low but able to function over the last number of years?"
+            },
+            {
+                "id": 4,
+                "text": "Have there been times, lasting at least a few days, when you felt the opposite of depressed when you were very cheerful or happy and this felt different from your normal self?"
+            }
+        ]
+    },
+    "Anxiety": {
+        "questions": [
+            {
+                "id": 1,
+                "text": "Do you get anxious when you are separated from people you are closely attached to?"
+            },
+            {
+                "id": 2,
+                "text": "Do you have a preoccupation with having or acquiring a serious illness?"
+            },
+            {
+                "id": 3,
+                "text": "Are there specific objects, places, or social situations that make you feel very anxious or tearful?"
+            },
+            {
+                "id": 4,
+                "text": "Do you ever have anxiety or intense fear in social situations?"
+            },
+            {
+                "id": 5,
+                "text": "Do you ever have anxiety or intense fear in situations outside of your home?"
+            },
+            {
+                "id": 6,
+                "text": "A panic attack is a sudden rush of intense fear that can come on from out of the blue for no apparent reason, or in situations where you did not expect it to occur. Have you experienced recurrent panic attacks?"
+            },
+            {
+                "id": 7,
+                "text": "Is it hard for you to control or stop your worrying?"
+            },
+            {
+                "id": 8,
+                "text": "During the past several months, have you frequently been worried about several things in your life?"
+            }
+        ]
+    },
+    "Bipolar": {
+        "questions": [
+            {
+                "id": 1,
+                "text": "Have you seen visions or other things that other people did not see or have you heard noises, sounds, or voices that other people did not hear?"
+            },
+            {
+                "id": 2,
+                "text": "Do you have mood changes in the week before your period that are disruptive to you or those around you?"
+            },
+            {
+                "id": 3,
+                "text": "Have there been times lasting at least several days when you feel high, on top of the world, euphoric, highly motivated, or have a reduced need for sleep?"
+            }
+        ]
+    },
+    "Trauma": {
+        "questions": [
+            {
+                "id": 1,
+                "text": "Do reminders of any past trauma or experiences make you upset or give you physical symptoms?"
+            },
+            {
+                "id": 2,
+                "text": "Do you experience upsetting memories, flashbacks, or nightmares regarding any traumatic events that occurred more than 30 days ago?"
+            },
+            {
+                "id": 3,
+                "text": "Have you ever experienced or witnessed an event ever in your life in which you were seriously injured or your life was in danger, or you thought you were going to be seriously injured or endangered more than 30 days ago?"
+            },
+            {
+                "id": 4,
+                "text": "Have you directly experienced, witnessed, or been exposed to a traumatic event in the past 30 days?"
+            }
+        ]
+    },
+    "Obsessions": {
+        "questions": [
+            {
+                "id": 1,
+                "text": "Do you pick your skin?"
+            },
+            {
+                "id": 2,
+                "text": "Do you pull your hair out to the point of hair loss?"
+            },
+            {
+                "id": 3,
+                "text": "Do you have trouble getting rid of things?"
+            },
+            {
+                "id": 4,
+                "text": "Do you have a preoccupation with one or more perceived defects or flaws in physical appearance that are not observable or appear slight to others?"
+            },
+            {
+                "id": 5,
+                "text": "Are there any physical acts you feel like you have to do to reduce the distress associated with these unwanted images, thoughts, or urges?"
+            },
+            {
+                "id": 6,
+                "text": "Do you frequently experience unwanted images, thoughts, or urges?"
+            }
+        ]
+    },
+    "Eating": {
+        "questions": [
+            {
+                "id": 1,
+                "text": "Have you ever gone on eating binges when you are abnormally large amounts of food over a short period?"
+            },
+            {
+                "id": 2,
+                "text": "Do you have a fear of gaining weight or of becoming overweight or do you restrict or avoid particular foods so much that it negatively affects your health or weight?"
+            }
+        ]
+    },
+    "Personality": {
+        "questions": [
+            {
+                "id": 1,
+                "text": "Do you have any physical symptoms that you spend a lot of time thinking about?"
+            },
+            {
+                "id": 2,
+                "text": "Do people change their behavior when you are present or do you believe in magical things like the 'sixth sense' or telepathy?"
+            },
+            {
+                "id": 3,
+                "text": "Do you prefer to be alone and have little interest in human relationships?"
+            },
+            {
+                "id": 4,
+                "text": "Do you feel paranoid or would people describe you as paranoid?"
+            },
+            {
+                "id": 5,
+                "text": "Do you have a preoccupation with orderliness, perfectionism, and mental and interpersonal control?"
+            },
+            {
+                "id": 6,
+                "text": "Do you consider yourself 'special', important, envious, or require admiration from those around you?"
+            },
+            {
+                "id": 7,
+                "text": "Would you say that starting in early adulthood you were excessively emotional and attention-seeking?"
+            },
+            {
+                "id": 8,
+                "text": "Do you need others to assume responsibility for most major aspects of your life?"
+            },
+            {
+                "id": 9,
+                "text": "Do you have trouble making everyday decisions without reassurance or have issues doing things alone?"
+            },
+            {
+                "id": 10,
+                "text": "Are your interpersonal relationships unstable or do you have an unstable sense of 'self' or ever feel empty?"
+            },
+            {
+                "id": 11,
+                "text": "Have you ever threatened anyone, initiated a fight, used a weapon, bullied anyone, shoplifted, started fires, or been in trouble with school or the police?"
+            }
+        ]
+    },
+    "Dissociation": {
+        "questions": [
+            {
+                "id": 1,
+                "text": "Do you ever feel like people or places that are familiar to you are unreal, or that you are so detached from your body that it is like you are standing outside your body or watching yourself?"
+            },
+            {
+                "id": 2,
+                "text": "Everyone has trouble remembering things sometimes, but do you ever lose time, forget important details about yourself, or find evidence that you took part in events you cannot recall?"
+            }
+        ]
+    },
+    "Somatic": {
+        "questions": [
+            {
+                "id": 1,
+                "text": "Do you get sick more often than most people?"
+            },
+            {
+                "id": 2,
+                "text": "Do you worry about your physical health more than most people?"
+            }
+        ]
+    },
+    "Sleep": {
+        "questions": [
+            {
+                "id": 1,
+                "text": "Have you, or has a sleeping partner, noticed any unusual behaviors while you sleep?"
+            },
+            {
+                "id": 2,
+                "text": "Do you frequently experience an irrepressible need to sleep or experience sudden lapses into sleep?"
+            },
+            {
+                "id": 3,
+                "text": "Alternatively, do you often experience excessive sleepiness?"
+            },
+            {
+                "id": 4,
+                "text": "Is your sleep often inadequate or of poor quality?"
+            }
+        ]
+    },
+    "Addiction": {
+        "questions": [
+            {
+                "id": 1,
+                "text": "Do you bet, wager, or gamble that ever interferes with your life?"
+            },
+            {
+                "id": 2,
+                "text": "Have you ever had any problems as a result of other drug use, experienced drug withdrawal, or used drugs more often than you think you should?"
+            },
+            {
+                "id": 3,
+                "text": "Have you had any problems as a result of drinking alcohol, experience alcohol withdrawal or drink more often than you think you should?"
+            }
+        ]
+    },
+    "Elimination": {
+        "questions": [
+            {
+                "id": 1,
+                "text": "Have you repeatedly passed urine or feces onto your clothing, your bed, the floor, or another inappropriate place?"
+            }
+        ]
+    }
+}

@@ -1,0 +1,204 @@
+{% if 'TASK' in section or 'ALL' in section %}
+### Task: 
+Summarize the chat based on the user and psychiatrist's conversation, and conclude whether the user is agreeing or disagreeing to the specific question (whether they experience a symptom as asked and how frequently or if it affecting them significantly).
+Use the chat summary to generate the outputs: clarity score, positive score, reasoning, concluding prompt, and clarification guidance.
+{% endif %}
+
+
+{% if 'INSTRUCTION' in section or 'ALL' in section %}
+### Instructions:
+Provide step-by-step reasoning for the clarity and positive scores, referencing the chat summary and the latest conversation.
+Step 1. Chat Summary: Generate a concise summary of the conversation, focusing on:
+  - Whether the responses provide a clear answer to the specific question.
+  - Key points indicating agreement or disagreement.
+  - Any ambiguity or need for follow-up.
+
+Step 2. Evaluate Clarity Score:
+  - Identify key points from the <Chat Summary> and the latest conversation that relate to the <Question>.
+  - Assess the relevance, clarity, and alignment of the conversation with the <Question>.
+  - Generate a Clarity Score based on the relevance and clarity of the conversation.
+    - Clarity Score (0.0 to 1.0):
+      - High score (close to 1.0) = Clear, relevant, and on-topic responses.
+      - Low score (close to 0.0) = Vague, unclear, or irrelevant responses. 
+
+Step 3. Evaluate Positive Score:
+  - Identify key points from the <Chat Summary> and the latest conversation that relate to the <Question>.
+  - Determine whether the user’s responses indicate agreement, disagreement, or uncertainty regarding the symptom.
+  - Evaluate the user's responce based frequency of the symptom, the impact of the symptom, and the user's perception of the symptom.
+    - Positive Score (0.0 to 1.0):
+      - High score (close to 1.0) = The user clearly agrees with the symptom or conditon and experiences it frequently or it is affecting there life significantly.
+      - Moderate score (around 0.5) = The user's response is ambiguous or uncertain.
+      - Low score (close to 0.0) = The user clearly disagrees with the symptom or conditon or if the symptom is very mild or its normal human behavior.
+
+Step 4. Concluding Prompt and Clarification Guidance:
+  - Provide a final conclusion based on the conversation.
+  - If the conversation lacks clarity or a conclusion, offer follow-up questions or Clarification Guidance to seek more information.
+
+{% endif %}
+
+
+{% if 'TAGS' in section or 'ALL' in section %}
+### Tags:
+- `<Step 1>`: Generate Chat Summary based on the conversation.
+- `<Step 2>`: Evaluate Clarity Score based on the conversation.
+- `<Step 3>`: Evaluate Positive Score based on the conversation.
+- `<Step 4>`: Provide a Concluding Prompt and Clarification Guidance.
+{% endif %}
+
+
+{% if 'INPUT_FORMAT' in section or 'ALL' in section %}
+### Input Format:
+{
+  "Question": <Question about a symptom or condition>,
+  "Chat History": <History of the conversation between the User and Psychiatrist>,
+  "Conversation": {
+    "Psychiatrist": "<Psychiatrist's latest response>"
+    "User": "<User's latest response>",
+  }
+}
+{% endif %}
+
+
+{% if 'OUTPUT_FORMAT' in section or 'ALL' in section %}
+### Output Format (JSON):
+{
+  "reasoning": [
+    "<Step 1: Chat Summary>",
+    "<Step 2: Clarity Score Evaluation>",
+    "<Step 3: Positive Score Evaluation>",
+    "<Step 4: Concluding Prompt and Clarification Guidance>"
+  ],
+  "chat_summary": "<concise summary of the conversation>",
+  "clarity_score": "<float between 0.0 and 1.0>",
+  "positive_score": "<float between 0.0 and 1.0>",
+  "concluding_prompt": "<final conclusion or follow-up question>",
+  "follow_up": "<guidance for the user to provide more clarity if needed>"
+}
+{% endif %}
+
+{% if 'EXAMPLE' in section or 'ALL' in section %}
+### Example 1:
+####Input:
+{
+  "Question": "Do you feel anxious in social situations?",
+  "Chat History": "User has mentioned occasional nervousness but no specific instances of social anxiety.",
+  "Conversation": {
+    "Psychiatrist": "So, do you feel nervous when meeting new people or in crowds?",
+    "User": "I do sometimes, but it’s not something that affects me regularly."
+  }
+}
+####Output:
+{
+  "reasoning": [
+    "<Step 1: The user acknowledges feeling nervous in certain social situations but emphasizes it is not a regular occurrence.>",
+    "<Step 2: The responses partially align with the question but do not indicate significant social anxiety.>",
+    "<Step 3: The user disagrees with having regular anxiety in social situations.>",
+    "<Step 4: Conclude that the user likely does not experience clinical social anxiety. Suggest exploring specific triggers to understand occasional nervousness.>"
+  ],
+  "chat_summary": "The user experiences occasional nervousness in social situations but denies regular anxiety.",
+  "clarity_score": 0.9,
+  "positive_score": 0.3,
+  "concluding_prompt": "You don't seem to experience clinical social anxiety.",
+  "follow_up": "If you think about specific situations where nervousness occurs to better assess its impact."
+}
+
+### Example 2:
+####Input:
+{
+  "Question": "Do you have difficulty concentrating on tasks?",
+  "Chat History": "User reported feeling distracted at work but didn't specify how often.",
+  "Conversation": {
+    "Psychiatrist": "Does this difficulty concentrating happen daily or only on certain days?",
+    "User": "It happens more when I’m working on something boring or repetitive."
+  }
+}
+####Output:
+{
+  "reasoning": [
+    "<Step 1: The user reports that difficulty concentrating occurs in specific contexts, such as during boring or repetitive tasks.>",
+    "<Step 2: The responses are relevant and provide some clarity but do not detail frequency or overall impact.>",
+    "<Step 3: The user partially agrees with the symptom, linking it to situational factors.>",
+    "<Step 4: Conclude that the user likely experiences situational concentration difficulties, not a pervasive issue.>"
+  ],
+  "chat_summary": "The user reports difficulty concentrating, particularly during boring or repetitive tasks.",
+  "clarity_score": 0.8,
+  "positive_score": 0.7,
+  "concluding_prompt": "You likely experiences situational concentration difficulties rather than a chronic issue.",
+  "follow_up": "Ask if this impacts their productivity or extends to tasks they usually find engaging."
+}
+
+### Example 3:
+####Input:
+{
+  "Question": "Do you feel fatigued despite sleeping well?",
+  "Chat History": "No History",
+  "Conversation": {
+    "Psychiatrist": "Do you feel fatigued despite sleeping well?",
+    "User": "I feel tired even when I get 7-8 hours of sleep."
+  }
+}
+####Output:
+{
+  "reasoning": [
+    "<Step 1: The user reports fatigue despite getting sufficient sleep, suggesting the issue may not be related to sleep quality.>",
+    "<Step 2: The response directly aligns with the question and provides clarity.>",
+    "<Step 3: The user agrees with the symptom of fatigue despite adequate sleep.>",
+    "<Step 4: Conclude that the user likely experiences fatigue unrelated to sleep and suggest further investigation of other potential causes.>"
+  ],
+  "chat_summary": "The user reports feeling tired even after 7-8 hours of sleep.",
+  "clarity_score": 1.0,
+  "positive_score": 0.6,
+  "concluding_prompt": "You are experiences fatigue despite sleeping well, suggesting other potential causes.",
+  "follow_up": "Are these feelings constant and affecting your daily activities?"
+}
+
+### Example 4:
+####Input:
+{
+  "Question": "Do you feel sad or hopeless most of the time?",
+  "Chat History": "No History",
+  "Conversation": {
+    "Psychiatrist": "Do you still feel sad or has it improved?",
+    "User": "I feel better now. It was just because of what happened last week."
+  }
+}
+####Output:
+{
+  "reasoning": [
+    "<Step 1: The user reports fatigue despite getting sufficient sleep, suggesting the issue may not be related to sleep quality.>",
+    "<Step 2: The response directly aligns with the question and provides clarity.>",
+    "<Step 3: The user agrees with the symptom of fatigue despite adequate sleep.>",
+    "<Step 4: Conclude that the user likely experiences fatigue unrelated to sleep and suggest further investigation of other potential causes.>"
+  ],
+  "chat_summary": "The user reports feeling tired even after 7-8 hours of sleep.",
+  "clarity_score": 1.0,
+  "positive_score": 0.6,
+  "concluding_prompt": "The user likely experiences fatigue despite sleeping well, suggesting other potential causes.",
+  "follow_up": "Ask about other factors such as stress, diet, or medical conditions contributing to fatigue."
+}
+
+### Example 5:
+####Input:
+{
+  "Question": "Do you have difficulty sleeping at night?",
+  "Chat History": "No History.",
+  "Conversation": {
+    "Psychiatrist": "Do you have difficulty sleeping at night?",
+    "User": "No, I usually fall asleep quickly and stay asleep until morning."
+  }
+}
+####Output:
+{
+  "reasoning": [
+    "<Step 1: The user denies having difficulty sleeping and reports a regular sleep pattern.>",
+    "<Step 2: The response is highly relevant and directly addresses the question.>",
+    "<Step 3: The user disagrees with experiencing difficulty sleeping.>",
+    "<Step 4: Conclude that the user does not have difficulty sleeping at night.>"
+  ],
+  "chat_summary": "The user reports no difficulty falling or staying asleep and has a regular sleep pattern.",
+  "clarity_score": 1.0,
+  "positive_score": 0.0,
+  "concluding_prompt": "The user does not experience difficulty sleeping at night.",
+  "follow_up": "No clarification is necessary."
+}
+{% endif %}

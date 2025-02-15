@@ -1,0 +1,330 @@
+{% if 'TASK' in section or 'ALL' in section %}
+### Task: 
+Summarize the chat based on the user and psychiatrist's conversation, and conclude whether the user is agreeing or disagreeing to the specific question (whether that affecting them significantly).
+Use the chat summary to generate the outputs: clarity score, positive score, reasoning, concluding prompt, and clarification guidance.
+{% endif %}
+
+
+{% if 'INSTRUCTION' in section or 'ALL' in section %}
+### Instructions:
+Provide step-by-step reasoning for the clarity and positive scores, referencing the chat summary and the latest conversation.
+Step 1. Question Analysis: Analyze the Question and figure out if the question contains multiple parts or if it is a single question.
+  - If the question contains multiple parts, then analyze the user's response wheather user is answering all parts of the question.
+  - Dont go into the specifics just check if the user is answering the question directly. Major, most, less, insignificant, etc. are the words that can be used to check the frequency or the impact of the symptom.
+
+Step 2. Chat Summary: Generate a concise summary of the conversation, focusing on:
+  - Whether the responses provide a clear answer to the specific question.
+  - Key points indicating agreement or disagreement.
+  - Any ambiguity or need for follow-up.
+
+Step 3. Evaluate Clarity Score:
+  - Identify key points from the <Chat Summary> and the latest conversation that relate to the <Question>.
+  - Assess the relevance, clarity, and alignment of the conversation with the <Question>.
+  - Generate a Clarity Score based on the relevance and clarity of the conversation.
+    - Clarity Score (0.0 to 1.0):
+      - High score (close to 1.0) = If the response is complete and relevant to the question.
+      - Low score (close to 0.0) = If the responses are incomplete means giving only paretial answer for different parts of the question or if the responses are irrelevant to the question. 
+
+Step 4. Evaluate Positive Score:
+  - Identify key points from the <Chat Summary> and the latest conversation that relate to the <Question>.
+  - Determine whether the user’s responses indicate agreement, disagreement, or uncertainty regarding the symptom.
+  - Evaluate the user's responce based on the impact of the symptom.
+    - Positive Score (0.0 to 1.0):
+      - High score (close to 1.0) = The user clearly agrees with the symptom or if user response is very positive.
+      - Moderate score (around 0.5) = The user's response is ambiguous or uncertain.
+      - Low score (close to 0.0) = The user clearly disagrees with the symptom or if the symptom is very mild or its normal human behavior.
+
+Step 5. Concluding Prompt and Clarification Guidance:
+  - Provide a final conclusion based on the conversation.
+  - give Low Clarity Score: If the conversation lacks clarity or incomplete responce for the question, offer follow-up questions to seek more information.
+
+{% endif %}
+
+
+{% if 'TAGS' in section or 'ALL' in section %}
+### Tags:
+- `<Step 1>`: Analyze the Question for multiple parts or single question.
+- `<Step 2>`: Generate Chat Summary based on the conversation.
+- `<Step 3>`: Evaluate Clarity Score based on the conversation.
+- `<Step 4>`: Evaluate Positive Score based on the conversation.
+- `<Step 5>`: Provide a Concluding Prompt and Clarification Guidance.
+{% endif %}
+
+
+{% if 'INPUT_FORMAT' in section or 'ALL' in section %}
+### Input Format:
+{
+  "Question": <Question about a symptom or condition>,
+  "Chat History": <History of the conversation between the User and Psychiatrist>,
+  "Conversation": {
+    "Psychiatrist": "<Psychiatrist's latest response>"
+    "User": "<User's latest response>",
+  }
+}
+{% endif %}
+
+
+{% if 'OUTPUT_FORMAT' in section or 'ALL' in section %}
+### Output Format (JSON):
+{
+  "reasoning": [
+    "<Step 1: Question Analysis>",
+    "<Step 2: Chat Summary>",
+    "<Step 3: Clarity Score Evaluation>",
+    "<Step 4: Positive Score Evaluation>",
+    "<Step 5: Concluding Prompt and Clarification Guidance>"
+  ],
+  "chat_summary": "<concise summary of the conversation>",
+  "clarity_score": "<float between 0.0 and 1.0>",
+  "positive_score": "<float between 0.0 and 1.0>",
+  "concluding_prompt": "<final conclusion or follow-up question>",
+  "follow_up": "<guidance for the user to provide more clarity if needed>"
+}
+{% endif %}
+
+{% if 'EXAMPLE' in section or 'ALL' in section %}
+### Example 1:
+### Input:
+{
+  "Question": "Do you often feel anxious in social situations?",
+  "Chat History": "No History",
+  "Conversation": {
+    "Psychiatrist": "Would you say social gatherings make you nervous or uncomfortable?",
+    "User": "Sometimes I feel nervous, but not always."
+  }
+}
+
+### Output:
+{
+  "reasoning": [
+    "<Step 1: The question is a single question about social anxiety.>",
+    "<Step 2: They mention feeling nervous sometimes, suggesting occasional anxiety.>",
+    "<Step 3: The response is somewhat clear but lacks depth or consistency across different situations.>",
+    "<Step 4: The user indicates occasional anxiety, not persistent.>",
+    "<Step 5: Suggest a follow-up to explore the frequency and intensity of the anxiety in social situations.>"
+  ],
+  "chat_summary": "User sometimes feels nervous in social gatherings but not always.",
+  "clarity_score": "0.7",
+  "positive_score": "0.5",
+  "concluding_prompt": "It seems you occasionally feel nervous in social situations. How often does this happen?",
+  "follow_up": "Can you describe any specific situations that trigger this nervousness?"
+}
+
+
+### Example 2:
+### Input:
+{
+  "Question": "Do you find it difficult to concentrate on tasks for long periods?",
+  "Chat History": "No History",
+  "Conversation": {
+    "Psychiatrist": "Would you say this lack of concentration affects your productivity?",
+    "User": "Yes"
+  }
+}
+
+### Output:
+{
+  "reasoning": [
+    "<Step 1: The question directly asks about difficulty in concentrating on tasks.>",
+    "<Step 2: The user confirms that the lack of concentration affects their productivity.>",
+    "<Step 3: The response is explicit and relevant.>",
+    "<Step 4: The user fully agrees, indicating a significant impact.>",
+    "<Step 5: No further clarification needed; acknowledge the user's struggle. Shows a clear signs of difficulty in concentration.>"
+  ],
+  "chat_summary": "User reports that lack of concentration affects their productivity.",
+  "clarity_score": "1.0",
+  "positive_score": "1.0",
+  "concluding_prompt": "It sounds like concentration is a major challenge for you, affecting your productivity.",
+  "follow_up": "No follow-up needed."
+}
+
+
+### Example 3:
+### Input:
+{
+  "Question": "Do you find it hard to fall asleep at night?",
+  "Chat History": "No History",
+  "Conversation": {
+    "Psychiatrist": "Do you experience restlessness before sleep?",
+    "User": "No"
+  }
+}
+
+### Output:
+{
+  "reasoning": [
+    "<Step 1: The question is straightforward, asking about difficulty falling asleep.>",
+    "<Step 2: The user states they fall asleep easily, directly addressing the question.>",
+    "<Step 3: The response is clear and complete.>",
+    "<Step 4: The user denies any sleep issues.>",
+    "<Step 5: No further questions are needed as the user clearly denies the issue. No signs of difficulty in falling asleep.>"
+  ],
+  "chat_summary": "User reports no issues with falling asleep, stating they fall asleep easily.",
+  "clarity_score": "1.0",
+  "positive_score": "0.0",
+  "concluding_prompt": "It seems you don’t have any trouble falling asleep.",
+  "follow_up": "No follow-up needed."
+}
+
+### Example 4:
+####Input:
+{
+  "Question": "Do you feel sad or hopeless most of the time?",
+  "Chat History": "No History",
+  "Conversation": {
+    "Psychiatrist": "Do you still feel sad or has it improved?",
+    "User": "I feel better now. It was just because of what happened last week."
+  }
+}
+####Output:
+{
+  "reasoning": [
+      "<Step 1: Question is straightforward, asking about persistent sadness or hopelessness.>",
+      "<Step 2: The user explains feeling better now and attributes past feelings to a specific event.>",
+      "<Step 3: The response is clear and directly addresses the question.>",
+      "<Step 4: The user had a temporary episode of sadness due to a recent event, not a persistent feeling.>"
+      "<Step 5: Suggest the user if you want to talk more about the event. Not able to conclude clearly about the user's feeling of sadness.>"
+      ],
+  "chat_summary": "The user reports feeling better now and attributes past sadness to a specific event.",
+  "clarity_score": 1.0,
+  "positive_score": 0.6,
+  "concluding_prompt": "The user likely experienced temporary sadness due to a recent event.",
+  "follow_up": "If you want to talk more about the event, feel free to share your thoughts."
+}
+
+### Example 5:
+### Input:
+{
+  "Question": "Have you been feeling down or depressed over the last two weeks? If yes, how long have you been feeling this way each day?",
+  "Chat History": "User describes feeling down over the past two weeks but hasn't mentioned how long these feelings last each day.",
+  "Conversation": {
+    "Psychiatrist": "For how long during the day?",
+    "User": "Yes, I’ve felt down most days in the past two weeks. These feelings usually last for multiple hours each day."
+  }
+}
+
+### Output:
+{
+  "reasoning": [
+    "<Step 1: The question Contains multiple parts, asking about the duration of feeling down each day.>",
+    "<Step 2: The user confirms feeling down most days over the past two weeks and provides details on the duration of these feelings.>",
+    "<Step 3: The response directly aligns with the question and provides clarity.>",
+    "<Step 4: The user acknowledges feeling down most days with a specific duration, indicating a significant impact.>"
+    "<Step 5: Conclude that the user has been feeling down for a significant amount of time.>"
+  ],
+  "chat_summary": "User confirms feeling down most days over the past two weeks, with feelings lasting multiple hours each day.",
+  "clarity_score": "1.0",
+  "positive_score": "1.0",
+  "concluding_prompt": "It seems like you've been feeling down for a significant amount of time."
+  "follow_up": "No follow-up needed."
+}
+
+### Example 6:
+### Input:
+{
+  "Question": "Do you often worry about different aspects of your life, such as work, relationships, or health? If yes, has this worry been difficult to control?",
+  "Chat History": "User mentions feeling anxious about work and health but hasn't explained whether controlling the worry is difficult.",
+  "Conversation": {
+    "Psychiatrist": "Do you often worry about various aspects of your life, such as work, relationships, or health? If yes, is it difficult for you to control these worries?",
+    "User": "Yes, I often feel anxious about my work and health."
+  }
+}
+
+### Output:
+{
+  "reasoning": [
+    "<Step 1: The question have multiple parts, asking about the occurrence of worry and the difficulty in controlling it.>",
+    "<Step 2: The user confirms feeling anxious about work and health but does not mention the difficulty in controlling these worries.>",
+    "<Step 3: The user's response is clear about the occurrence of worry but lacks information on the control aspect.>",
+    "<Step 4: The user acknowledges feeling anxious about work and health but does not provide details on the difficulty in controlling these worries.>"
+    "<Step 5: Prompt the user to clarify whether these worries are hard to control."
+  ],
+  "chat_summary": "User reports feeling anxious about work and health but has not provided information on whether they find it difficult to control the worries.",
+  "clarity_score": "0.5",
+  "positive_score": "0.8",
+  "concluding_prompt": "You've mentioned feeling anxious about work and health. Would you say that this worry is hard for you to control?",
+  "follow_up": "Can you explain whether these worries often overwhelm you, or if you manage to keep them in check?"
+}
+
+### Example 7:
+### Input:
+{
+  "Question": "Have you ever experienced a sudden burst of fear or panic, accompanied by physical symptoms like rapid heartbeat or shortness of breath? If yes, how often do these attacks occur?",
+  "Chat History": "No History",
+  "Conversation": {
+    "Psychiatrist": "Have you ever had a sudden burst of fear or panic with physical symptoms like a racing heart or shortness of breath? If yes, how often do these occur?",
+    "User": "Yes, I’ve had panic attacks several times a month over the past year. They usually happen about once or twice a week."
+  }
+}
+
+### Output:
+{
+  "reasoning": [
+    "<Step 1: The question asks about two parts: the occurrence of panic attacks and their frequency.>",
+    "<Step 2: The user confirms experiencing panic attacks once or twice a week over the past year.>",
+    "<Step 3: The user's response is clear and directly addresses both parts of the question.>",
+    "<Step 4: The user acknowledges experiencing panic attacks with a specific frequency, indicating a significant impact.>"
+    "<Step 5: Conclude that the user experiences panic attacks once or twice a week, suggesting a recurring pattern. Shows a clear signs of panic attacks."
+  ],
+  "chat_summary": "User experiences panic attacks once or twice a week, and these episodes have been occurring for the past year.",
+  "clarity_score": "1.0",
+  "positive_score": "1.0",
+  "concluding_prompt": "Thank you for sharing that."
+  "follow_up": "No follow-up needed."
+}
+
+### Example 8:
+### Input:
+{
+  "Question": "Have you been experiencing difficulty falling asleep or staying asleep? If yes, how many nights a week does this happen?",
+  "Chat History": "User acknowledges sleep issues but hasn't specified the frequency of occurrence. Psychiatrist asks for clarification.",
+  "Conversation": {
+    "Psychiatrist": "How many nights a week does this occur?",
+    "User": "Yes"
+  }
+}
+
+### Output:
+{
+  "reasoning": [
+    "<Step 1: The question asks about the occurrence of sleep issues and the frequency of these problems.>",
+    "<Step 2: The user confirms experiencing sleep difficulties but does not specify how often this happens.>",
+    "<Step 3: The user's response lacks clarity on the frequency of sleep issues.>",
+    "<Step 4: The user acknowledges sleep problems but does not provide details on the frequency of occurrence.>"
+    "<Step 5: Prompt the user to clarify how often they experience difficulty falling asleep or staying asleep."
+  ],
+  "chat_summary": "User reports struggling with sleep often, but does not specify how frequently this occurs each week.",
+  "clarity_score": "0.5",
+  "positive_score": "0.7",
+  "concluding_prompt": "You mentioned struggling with sleep. Can you clarify how many nights a week you experience these issues?",
+  "follow_up": "Please let me know how often you find it difficult to fall asleep or stay asleep."
+}
+
+### Example 9:
+### Input:
+{
+  "Question": "In the past two weeks, have you noticed any significant changes in your appetite, such as eating more or less than usual? If yes, how much have your eating habits changed?",
+  "Chat History": "User acknowledges changes in appetite but hasn't provided specific details on the extent of the change.",
+  "Conversation": {
+    "Psychiatrist": "Have you noticed any significant changes in your appetite, like eating much more or less than usual? If yes, can you explain how much your eating habits have changed?",
+    "User": "Yes, I've been eating significantly less lately. I used to have large meals, but now I only eat small portions."
+  }
+}
+
+### Output:
+{
+  "reasoning": [
+    "<Step 1: The question asks about changes in appetite and the extent of these changes.>",
+    "<Step 2: The user confirms eating significantly less than usual, providing details on the extent of the change.>",
+    "<Step 3: The user's response is clear and directly addresses both parts of the question.>",
+    "<Step 4: The user acknowledges a significant decrease in appetite, transitioning from large meals to small portions.>"
+    "<Step 5: Conclude that the user has experienced a significant decrease in appetite, affecting their eating habits. Shows a clear signs of decreased appetite."
+  ],
+  "chat_summary": "User has experienced a significant decrease in appetite, eating only small portions compared to previously large meals.",
+  "clarity_score": "1.0",
+  "positive_score": "1.0",
+  "concluding_prompt": "It sounds like your appetite has decreased quite a bit"
+  "follow_up": "No follow-up needed."
+}
+
+{% endif %}

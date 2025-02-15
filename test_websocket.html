@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Test</title>
+</head>
+<body>
+    <h1>WebSocket Test</h1>
+    <button id="sendMessage">Send Question to Backend</button>
+    <div id="response"></div>
+
+    <script>
+        const socket = new WebSocket("ws://localhost:8000/ws");
+
+        socket.onopen = () => {
+            console.log("Connected to WebSocket");
+            document.getElementById("sendMessage").disabled = false;
+        };
+
+        socket.onmessage = (event) => {
+            const message = event.data;
+            console.log("Received message:", message);
+            document.getElementById("response").innerText = message;
+        };
+
+        socket.onclose = () => {
+            console.log("WebSocket connection closed");
+        };
+
+        document.getElementById("sendMessage").addEventListener("click", () => {
+            const message = {
+                question: "What are your symptoms?",
+                skip_allowed: false
+            };
+            socket.send(JSON.stringify(message));
+            console.log("Sent message to backend:", message);
+        });
+    </script>
+</body>
+</html>

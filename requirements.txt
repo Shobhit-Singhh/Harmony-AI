@@ -1,0 +1,13 @@
+jinja2
+python-frontmatter
+python-dotenv
+langchain 
+langchain-openai
+openai
+langsmith
+instructor
+pydantic
+fastapi 
+uvicorn
+requests
+websockets
