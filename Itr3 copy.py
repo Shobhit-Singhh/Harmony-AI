@@ -5,7 +5,6 @@ from src.utils.loader import *
 from src.utils.env import *
 import requests
 import asyncio
-from decimal import Decimal
 import json
 from typing import List
 from pydantic import BaseModel
@@ -74,20 +73,6 @@ async def chat_analysis(system_ques, user_response, chat, disorder, diagnose, we
     while True:
         kwarg_dict = {"ques": system_ques,"chat": chat,}
         msg = llmChatResponse(ChatAnalysisLLMResponce, system_role, **kwarg_dict)
-        logs = {
-            "Question": chat["Question"],
-            "Chat History": chat["Chat History"],
-            "Current Question": chat["Conversation"]["Psychiatrist"],
-            "User": chat["Conversation"]["User"],
-            "Chat Summary": msg.chat_summary,
-            "Reasoning": msg.reasoning,
-            "Clarity Score": float(msg.clarity_score) if isinstance(msg.clarity_score, Decimal) else msg.clarity_score,
-            "Positive Score": float(msg.positive_score) if isinstance(msg.positive_score, Decimal) else msg.positive_score,
-            "Concluding Prompt": msg.concluding_prompt,
-            "Follow Up": msg.follow_up,
-        }
-        
-        print("Logs:", logs)
         # msg = SimpleNamespace(
         #     clarity_score=float(1.0),
         #     positive_score=float(0.8),
@@ -102,15 +87,13 @@ async def chat_analysis(system_ques, user_response, chat, disorder, diagnose, we
 
         if msg.clarity_score >= 0.7:
             if (msg.positive_score >= 0.7):
-                print("Positive score is greater than 0.7")
+                print("Positive score is greater than 0.8")
                 chat_count += 1
             elif (msg.positive_score <= 0.3):
-                print("Positive score is less than 0.7")
+                print("Positive score is less than 0.2")
                 chat_count -= 1
             else:
                 system_ques = system_ques +  msg.follow_up
-            await send_to_frontend({"log" : logs}, websocket)
-
         else:
             system_ques =  msg.follow_up
         print("[Reasoning]",msg.reasoning)
@@ -131,7 +114,7 @@ async def chat_analysis(system_ques, user_response, chat, disorder, diagnose, we
         
         # Reattempt the same question for more clear response 
         else:
-            await send_to_frontend({ "question": f"{system_ques} [clarity : {msg.clarity_score}, affirmative: {msg.positive_score}]","skip_allowed": skip_allowed, "log" : logs}, websocket)
+            await send_to_frontend({ "question": f"{system_ques} [clarity : {msg.clarity_score}, affirmative: {msg.positive_score}]","skip_allowed": skip_allowed, "log" : [reasoning, ]}, websocket)
             user_response = await get_user_response_from_frontend(websocket)
 
         chat["Chat History"] = msg.chat_summary
@@ -192,16 +175,13 @@ async def websocket_endpoint(websocket: WebSocket):
 async def send_to_frontend(data: dict, websocket: WebSocket):
     message = data.get("question")
     skip_allowed = data.get("skip_allowed")
-    log = data.get("log")
-    
     
     try:
         await websocket.send_text(
             json.dumps({
                 "AIresponce": {
                     "question": message,
-                    "skip_allowed": skip_allowed,
-                    "log": log
+                    "skip_allowed": skip_allowed
                 }
             })
         )
