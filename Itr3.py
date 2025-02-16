@@ -368,4 +368,11 @@ async def primary_diagnostic_operator(request: DisorderRequest, websocket: WebSo
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(
+        app,
+        host="0.0.0.0",
+        port=8000,
+        ws_ping_interval=20,  # Keep WebSocket connections alive
+        ws_ping_timeout=20,
+        log_level="info"
+    )
