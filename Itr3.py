@@ -151,8 +151,8 @@ async def chat_analysis(system_ques, user_response, chat, disorder, diagnose, we
 
 app = FastAPI()
 
-@app.get("/")
-async def root():
+@app.api_route("/", methods=["GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "TRACE"])
+async def root(request: Request):
     return {"message": "Welcome to the Diagnostic API. Please connect via WebSocket to /ws"}
 
 app.add_middleware(
