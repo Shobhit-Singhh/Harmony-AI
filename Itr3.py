@@ -14,7 +14,7 @@ from pydantic import BaseModel
 # <--------------------------------------------
 from pydantic import BaseModel, condecimal
 from typing import Optional, List
-from openai import OpenAI
+from openai import OpenA
 from types import SimpleNamespace
 
 
